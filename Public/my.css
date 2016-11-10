@@ -1,5 +1,7 @@
 ol,ul {list-style: none;}
 a:link,a:visited,a:hover,a:active{text-decoration:none;}
+th{font-size: 20px}
+td{text-align:center;font-size: 18px;}
 .mt10{margin-top:10px;}
 .mt20{margin-top:20px;}
 .mt30{margin-top:30px;}
