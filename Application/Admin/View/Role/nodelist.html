@@ -1,0 +1,41 @@
+<extend name="Role/index" />
+<block name="main">
+
+
+<block name="main">
+<div class="panel admin-panel">
+  	<div class="panel-head"><strong><span class="icon-key"></span> 分配权限</strong></div>
+  	<div class="body-content">
+  		<div class="form-group">
+	  		<div class="label">
+				<label for="sitename">
+					给 <b><{$role.name}></b> 分配权限
+				</label>
+			</div>	
+		</div>
+		<form action="<{:U('Role/savenode')}>" method='post' class="form-x">
+			<div class="form-group">
+
+			<p style="width:800px;margin-left:30px">
+				<volist name="nodes" id="vo"> 
+					<input type="checkbox" name="node[]"  value="<{$vo.id}>" <if condition="in_array($vo['id'],$ro_nodes) eq true">checked</if>><{$vo.name}>&nbsp;&nbsp;
+					<if condition="$i%4 eq 0 "><br></if>
+				</volist>
+			</p>
+
+		</div>
+			<div class="form-group">
+		        <div class="label">
+		          <label></label>
+		        </div>
+		        <div class="field">
+					<input type="hidden" name="rid" value="<{$role.id}>">
+		          	<button class="button bg-main icon-check-square-o" type="submit"> 保存</button>
+		        </div>
+		    </div>
+		</form>
+	</div>
+</div>
+
+	
+</block>

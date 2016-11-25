@@ -1,8 +1,59 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
-    public function index(){
-        $this->show('<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;font-size:24px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px } a,a:hover,{color:blue;}</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p><br/>版本 V{$Think.version}</div><script type="text/javascript" src="http://ad.topthink.com/Public/static/client.js"></script><thinkad id="ad_55e75dfae343f5a1"></thinkad><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>','utf-8');
+class IndexController extends HomeController {
+    public function index()
+    {   
+        // $this->getReadername();
+        $Link = M('link');
+        $list = $Link->order('id desc')->limit(5)->select();
+        // var_dump($list);exit;
+        $this->list = $list;
+        $Book = M('book');
+        $data = $Book->order('collect desc')->limit(14)->getfield('id,bookname,bookpic,price');
+        $data1 = $Book->order('addtime desc')->limit(14)->getfield('id,bookname,bookpic,price');
+        $data2 = $Book->order('totalclick desc')->limit(14)->getfield('id,bookname,bookpic,price');
+        $press = M('press')->order('id desc')->limit(9)->getfield('id,pressname,pic');
+        // echo "<pre>";
+        // print_r($data);exit;
+        $_GET['pressname'] = empty($_GET['pressname'])?'中信出版社':$_GET['pressname'];
+        $pressname = '中信出版社';
+        if ($_GET['pressname']) {
+            $pressid = M('press')->where(array('pressname'=>$_GET['pressname']))->field('id')->find();
+            $pressbook = $Book->where(array('pressid'=>$pressid['id']))->limit(3)->select();
+        }else{
+        }
+        $this->press = $press;
+        $this->pressname = $pressname;
+        $this->pressbook = $pressbook;
+        $this->data = $data;
+        $this->data1 = $data1;
+        $this->data2 = $data2;
+        $this->title = '百度阅读_正版电子书在线阅读';
+		$this->display();	
+    }
+
+    public function search()
+    {
+        $queryString = I('post.queryString');
+        // var_dump($queryString);exit;
+        $map = [];
+        $map['bookname'] = array('like','%'.$queryString.'%');
+        $arr = [];
+        // $arr['authorname'] = array('like','%'.$queryString.'%');
+        if(strlen($queryString)>0){
+            $data = M('book')->where($map)->field('id,bookname')->limit(5)->select();
+            // $data1 = M('author')->where($arr)->field('authorname')->limit(5)->select();
+        }
+        // if(!empty($data1)){
+        //     $type1 = "a";
+        //     // var_dump($data);exit;
+        //     ajaxSearch($type1,$data1);
+        // }
+        if(!empty($data)){
+            $type = 'b';
+            // var_dump($data);exit;
+            ajaxSearch($type,$data);
+        }
     }
 }

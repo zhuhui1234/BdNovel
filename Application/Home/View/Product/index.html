@@ -1,0 +1,126 @@
+<extend  name="Index/index"/>
+
+<block name="main">
+	<link rel="stylesheet" href="__PUBLIC__/page.css">
+<style>
+	#product-type>li:hover{
+		border:none;
+	}
+	#product-type li a{
+		display:block;width:200px;height:40px;padding-left:40px;color:#333;font-size:16px;
+	}
+	#product-type>li>a:hover{
+		background-color:#34495E;
+		color:#fff;
+		text-decoration: none;
+	}
+	#typep{
+		margin: 1% 0 0 2%;
+		font-size: 16px;
+	}
+	#typep a{
+		font-size: 16px;
+		text-decoration: none;
+	}
+	#h2:hover{
+		text-decoration: none;
+	}
+</style>
+<div style="margin-top:30px;background-color:#FDFDFB;width:100%">
+<div class="container clearfix">
+	<div class="row clearfix">
+		<div class="col-md-2 list fl">
+			<if condition="($status eq 1) OR ($status eq 2)">
+				<input type="hidden" value="<{$hiddenid}>" id="hiddenid" />
+			</if>
+			<input type="hidden" value="<{$hiddencondition}>" id="hiddencondition" />
+			<a id="h2" href="<{:U('Product/index')}>"><h2 style="font-size:20px;background-color:#34495E;color:white;height:50px;line-height:50px;width:200px" id="allcate">全部分类<i class="fa fa-sort-down"></i></h2></a>
+			<div id="catecontent">
+				<if condition="($status neq 1) AND ($status neq 2)">
+					<ul class="one" id="product-type">
+						<volist name="typelist" id="vo">
+							<li style="float:left;width:200px;text-align:left;background-color:#f5f5f2;">
+								<a href="<{:U('Product/cate',array('id'=>$vo['id']))}>"><{$vo.typename}></a>
+								<ul class="two" style="z-index:360;">
+									<volist name="vo.soncate" id="val">
+										<li style="width:120px;float:left;padding-left:20px;color:#333"><a href="<{:U('Product/cate',array('id'=>$val['id']))}>"><{$val.typename}></a></li>
+									</volist>
+								</ul>
+							</li>
+						</volist>
+					</ul>
+				<else />
+					<ul id="son-cate">					
+						<p style="display:block;width:198px;height:40px;line-height:40px;font-size:16px;text-align:left;color:#666;background-color:#EBECED;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$ptypename}></p>
+						<volist name="typelist" id="vo">
+							<li style="display:block;width:198px;height:40px;background-color:#f5f4f2;line-height:40px;text-align:left;">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="<{:U('Product/cate',array('id'=>$vo['id']))}>" style="font-size:14px;color:#666;<if condition='($status eq 2) AND ($vo.id eq $sid)'>font-weight:700;</if>">
+									<{$vo.typename}>
+								</a>
+							</li>
+						</volist>
+					</ul>
+				</if>
+			</div>
+			<img src="__PUBLIC__/images/Home/1.jpeg" width="200px" alt="" style="margin-top:20px;">
+			<img src="__PUBLIC__/images/Home/2.jpg" width="200px" alt="" style="margin-top:10px;">
+			<img src="__PUBLIC__/images/Home/3.jpg" width="200px" alt="" style="margin-top:10px;">
+			<img src="__PUBLIC__/images/Home/4.jpg" width="200px" alt="" style="margin-top:10px;">
+		</div>
+		<div class="book fr" style="height:auto;" id="tablelist">
+			<p id="typep"><a href="<{:U('Index/index')}>">百度阅读</a> ＞ <a href="<{:U('Product/index')}>">全部图书</a> <if condition="$status eq 1">＞ <{$ptypename}><elseif condition="$status eq 2" />＞ <a href="<{:U('Product/cate',array('id'=>$ptypeid))}>"><{$ptypename}></a> ＞ <{$typename}><else /></if></p>
+			<span style="background-color:#F5F5F2;width:97%;height:40px;margin:2% 0 0 1%;display:block;">
+				<ul class="paixu">
+					<li><a href="<{:U(CONTROLLER_NAME.'/'.ACTION_NAME,array('condition'=>'totalclick','id'=>$hiddenid))}>">热度&nbsp;<img src="__PUBLIC__/images/Home/down-hui.png" width="10px" alt="" /></a></li>
+					<li><a href="<{:U(CONTROLLER_NAME.'/'.ACTION_NAME,array('condition'=>'addtime','id'=>$hiddenid))}>">最新&nbsp;<img src="__PUBLIC__/images/Home/down-hui.png" width="10px" alt="" /></a></li>
+					<li><a href="<{:U(CONTROLLER_NAME.'/'.ACTION_NAME,array('condition'=>'sale','id'=>$hiddenid))}>">销量&nbsp;<img src="__PUBLIC__/images/Home/down-hui.png" width="10px" alt="" /></a></li>
+					<li><a href="<{:U(CONTROLLER_NAME.'/'.ACTION_NAME,array('condition'=>'price','id'=>$hiddenid))}>">价格&nbsp;<img src="__PUBLIC__/images/Home/down-hui.png" width="10px" alt="" /></a></li>
+				</ul>
+			</span>
+			<volist name="data" id="vo">
+				<dl>
+					<dt>
+						<a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank">
+							<img src="__UPLOAD__/book/<{$vo.bookpic}>" width="110px" height="160px" alt="">
+						</a>
+					</dt>
+					<dd>
+						<p style="display:block;height:40px;line-height:20px;"><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><{$vo.bookname}></a></p>
+						<p><b style="color:#C97618;font-size:14px;">￥<{$vo.price}></b></p>
+					</dd>
+				</dl>
+			</volist>
+			<div class="pages clearfix" value="" id="pages" style="float:left;width:100%;text-align:center;margin-top:20px;"><{$page}></div>
+		</div>
+	</div>
+</div>
+</div>
+</block>
+<block name="js">
+	<script>
+    function user(page){
+        var p = page;
+        var id = $("#hiddenid").val();
+        var condition = $("#hiddencondition").val();
+        // console.log(condition);
+        if(id === undefined){
+        	Url = "<{:U('Product/index')}>";
+        }else{
+        	Url = "<{:U('Product/cate')}>";
+        }
+        // console.log(p);
+        // console.log(id);
+        $.ajax({
+            type:'get',
+            url:Url,
+            data:"id="+id+"&condition="+condition+"&p="+p,
+            success:function(data){
+                var $data = $(data);
+                var target_div = $data.find("#tablelist");
+                $('#tablelist').html(target_div);
+            },
+        })
+    }
+</script>
+</block>

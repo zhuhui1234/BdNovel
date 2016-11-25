@@ -1,0 +1,58 @@
+<extend  name="User/index"/>
+
+<block name="main">
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span> 读者详细信息</strong></div>
+  <div class="body-content">
+    <table class="table table-hover mt20 table-bordered">
+      <tr>
+        <td>账号：</td>
+        <td><{$data.readername}></td>
+      </tr>
+      <tr>
+        <td>联系方式：</td>
+        <td><{$data.phone}></td>
+      </tr>
+      <tr>
+      	<td>电子邮箱：</td>
+      	<td><{$data.email}></td>
+      </tr>
+      <tr>
+      	<td>电子邮箱：</td>
+      	<td><{$data.email}></td>
+      </tr>
+      <tr>
+      	<td>性别：</td>
+      	<td>
+      		<if condition="$data.sex eq 0">女
+      			<elseif condition="$data.sex eq 1" />男
+      			<else />保密
+      		</if>
+      	</td>
+      </tr>
+      <tr>
+      	<td>个人描述：</td>
+      	<td>
+      		<if condition="$data.descr eq ''">这个家伙很懒，什么都没有留下~~
+      			<else /><{$data.descr}>
+      		</if>
+      	</td>
+      </tr>
+      <tr>
+      	<td>积分：</td>
+      	<td>
+      		<{$data.integ}>
+      	</td>
+      </tr>
+      <tr>
+      	<td>注册时间：</td>
+      	<td><{$data.addtime|date='Y-m-d H:i:s',###}></td>
+      </tr>
+      <tr>
+      	<td>最后一次登录：</td>
+      	<td><{$data.logtime|date='Y-m-d H:i:s',###}></td>
+      </tr>
+    </table>
+  </div>
+</div>
+</block>

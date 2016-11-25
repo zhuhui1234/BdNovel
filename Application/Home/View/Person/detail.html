@@ -1,0 +1,55 @@
+<extend name="Index/index"/>
+
+<block name="main">
+<style>
+	#tx{
+		margin-top: 20px;
+		border-radius: 50%;
+	}
+	th{text-align: center}
+</style>
+<div style="margin:30px auto;background-color:#FDFDFB;width:100%">
+<div class="container clearfix">
+	<div class="row clearfix">
+		<div class="col-md-2 list fl">
+			<h2 style="font-size:20px;height:150px;line-height:50px;background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">	<if condition="$inf['pic'] eq ''"><img id="tx" src="__UPLOAD__/reader/touxiang.jpg" alt="" width="80" height="80"><else /><img id="tx" src="__UPLOAD__/reader/<{$inf[pic]}>" alt="" width="80" height="80"></if>
+				<p style="font-size:15px"><{$inf[readername]}></p>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/index')}>" style="font-size:18px;height:60px;line-height:60px">我的图书</a>
+			</h2>
+			<h2 style="background-color:#34495E;border:1px solid #34495E;border-top:none;">
+				<a href="<{:U('Person/order')}>"  style="font-size:18px;height:60px;line-height:60px;color:white;">我的订单</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/inf')}>" style="font-size:18px;height:60px;line-height:60px">个人信息</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/passwd')}>" style="font-size:18px;height:60px;line-height:60px">修改密码</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="#" style="font-size:18px;height:60px;line-height:60px">我的代金券</a>
+			</h2>
+		</div>
+		<div class="book fr" style="height:auto;">
+			<span style="width:97%;height:auto;display:block;" id="tablelist">
+					<table class="table table-striped table-hover table-bordered text-center">
+						<tr>
+							<th>图片</th>
+							<th>书名</th>
+							<th>价格</th>
+						</tr>
+						<volist name="data" id="vo">
+						<tr>
+							<td><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>"><img src="__UPLOAD__/book/<{$vo.bookpic}>" alt="" width="70px"></a></td>
+							<td style="line-height:75px"><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>"><{$vo.bookname}></a></td>
+							<td style="line-height:75px">￥<{$vo.price}></td>
+						</tr>
+						</volist>
+					</table>
+			</span>
+		</div>
+	</div>
+</div>
+</div>
+</block>

@@ -1,0 +1,141 @@
+<extend name="Index/index"/>
+
+<block name="main">
+	<link rel="stylesheet" href="__PUBLIC__/page.css">
+<style>
+	#tx{
+		margin-top: 20px;
+		border-radius: 50%;
+	}
+	.paixu li{
+		height:50px;
+		width:100px;
+		border:none;
+	}
+</style>
+<div style="margin-top:30px;background-color:#FDFDFB;width:100%">
+<div class="container clearfix">
+	<div class="row clearfix">
+		<div class="col-md-2 list fl">
+			<h2 style="font-size:20px;height:150px;line-height:50px;background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">	<if condition="$inf['pic'] eq ''"><img id="tx" src="__UPLOAD__/reader/touxiang.jpg" alt="" width="80" height="80"><else /><img id="tx" src="__UPLOAD__/reader/<{$inf[pic]}>" alt="" width="80" height="80"></if>
+				<p style="font-size:15px"><{$inf[readername]}></p>
+			</h2>
+			<h2 style="background-color:#34495E;border:1px solid #34495E;border-top:none;">
+				<a href="<{:U('Person/index')}>"  style="font-size:18px;height:60px;line-height:60px;color:white;">我的图书</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/order')}>" style="font-size:18px;height:60px;line-height:60px">我的订单</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/inf')}>" style="font-size:18px;height:60px;line-height:60px">个人信息</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="<{:U('Person/passwd')}>" style="font-size:18px;height:60px;line-height:60px">修改密码</a>
+			</h2>
+			<h2 style="background-color:#f2f2f0;border:1px solid #ccc;border-top:none;">
+				<a href="#" style="font-size:18px;height:60px;line-height:60px">我的代金券</a>
+			</h2>
+		</div>
+		<style>
+			#tag li{font-size:15px;float:left;width:100px;height:40px;text-align: center;line-height: 40px;cursor: pointer;border-bottom: 2px solid white;}
+			#son > div{float:left;margin-top:5px;width:900px;display:none;}
+			#tag .current1{border-bottom: 2px solid green;}
+		</style>
+		<div class="book fr" style="height:auto;">
+			<span style="width:97%;height:40px;display:block;">
+				<ul class="paixu" id="tag">
+					<li class="current1">全部&nbsp;</li>
+					<li>已购买&nbsp;</li>
+					<li>已收藏&nbsp;</li>
+				</ul>
+				<div id="son">
+					<div style="display:block" name="sun">
+						<span id="tablelist">
+						<volist name="all" id="vo">
+						<dl>
+							<dt><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><img src="__UPLOAD__/book/<{$vo.bookpic}>" width="110px" height="160px" alt=""></a></dt>
+							<dd>
+								<p style="display:block;height:40px;line-height:20px;"><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><{$vo.bookname}></a></p>
+								<p><b style="color:#C97618;font-size:14px;">价格：￥<{$vo.price}></b></p>
+							</dd>
+						</dl>
+						</volist>
+						<span class="pages clearfix" id="pages" style="display:block;float:left;width:100%;text-align:center;margin-top:20px;"><{$page}></span>
+						</span>
+					</div>
+
+					<div name="sun">
+						<volist name="buy" id="vo">
+						<dl>
+							<dt><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><img src="__UPLOAD__/book/<{$vo.bookpic}>" width="110px" height="160px" alt=""></a></dt>
+							<dd>
+								<p style="display:block;height:40px;line-height:20px;"><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><{$vo.bookname}></a></p>
+							</dd>
+						</dl>
+						</volist>
+					</div>
+					<div name="sun">
+						<span id="tablelist1">
+						<volist name="collect" id="vo">
+						<dl>
+							<dt><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><img src="__UPLOAD__/book/<{$vo.bookpic}>" width="110px" height="160px" alt=""></a></dt>
+							<dd>
+								<p style="display:block;height:40px;line-height:20px;"><a href="<{:U('Detail/index',array('id'=>$vo['id']))}>" target="_blank"><{$vo.bookname}></a></p>
+								<a href="javascript:void(0)" class="<{$vo.id}>" ><b style="color:#C97618;font-size:14px;">删除</b></a>
+							</dd>
+						</dl>
+						</volist>
+						</span>
+					</div>
+				</div>
+			</span>		
+		</div>
+
+
+		<script>
+			$('dd a').click(function(){
+				var bookid = $(this).attr('class');
+				$.ajax({
+		            type:'post',
+		            url:'<{:U('Person/del')}>',
+		            data:"bookid="+bookid,
+		            success:function(data){
+		            	var $data = $(data);
+		                var target_div = $data.find("#tablelist1");
+		                $('#tablelist1').html(target_div);
+		            },
+		        })
+			})
+
+			function user(page){
+		        var p = page;
+		        $.ajax({
+		            type:'get',
+		            url:"<{:U('Person/index')}>",
+		            data:"p="+p,
+		            success:function(data){
+		                var $data = $(data);
+		                var target_div = $data.find("#tablelist");
+		                $('#tablelist').html(target_div);
+		            },
+		        })
+			}
+
+			var lis = tag.getElementsByTagName('li');
+			var div = son.getElementsByTagName('div');
+			for(var i=0;i<lis.length;i++){
+				lis[i].index = i;
+				lis[i].onclick=function(){
+					for(var j=0;j<lis.length;j++){
+						lis[j].className = '';
+						div[j].style.display = "none";
+					}
+					this.className = 'current1';
+					div[this.index].style.display = "block";
+				}
+			}
+		</script>
+	</div>
+</div>
+</div>
+</block>

@@ -1,0 +1,477 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>登录页面</title>
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="stylesheet" href="/BdNovel/Public/login/assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/BdNovel/Public/login/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="/BdNovel/Public/login/assets/fonts/fonts.googleapis.com.css" />
+		<link rel="stylesheet" href="/BdNovel/Public/login/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="/BdNovel/Public/login/assets/css/ace-rtl.min.css" />
+	</head>
+
+	<body class="login-layout blur-login">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="space-6"></div>
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main" style="background:white">
+									<h1>
+										<img src="/BdNovel/Public/login/assets/images/baidu.jpg" alt="" width="50" height="40">
+										<span class="black" id="id-text2">登录百度账号</span>
+									</h1>
+									<h4 class="header blue lighter bigger">
+										<i class="ace-icon fa fa-sign-in green"></i>
+										请输入您的信息
+									</h4>
+									<div class="space-6"></div>
+
+									<form action="<?php echo U('Login/doLogin');?>" method="post">
+										<input type="hidden" name="logtime" value="<?php echo ($logtime = time()); ?>">
+										<fieldset>
+											<label class="block clearfix">
+												<span class="block input-icon input-icon-right">
+													<input type="text" name="readername" class="form-control" placeholder="用户名" />
+													<i class="ace-icon fa fa-user"></i>
+												</span>
+											</label>
+
+											<label class="block clearfix">
+												<span class="block input-icon input-icon-right">
+													<input type="password" name="password" class="form-control" placeholder="密码" />
+													<i class="ace-icon fa fa-lock"></i>
+												</span>
+											</label>
+											<label class="block clearfix">
+												<span class="block input-icon input-icon-right" style="width:291px">
+													<input type="text" name="code" class="form-control" placeholder="填写右侧的验证码" style="width:180px;float:left" />
+													<img src="<?php echo U('yzm');?>" id="yzm" title="单击刷新" alt="验证码丢了" class="passcode" style="width:100px;height:34px;cursor:pointer;float:right">
+												</span>
+											</label>
+
+											<div class="space"></div>
+
+											<div class="clearfix">
+												<label class="inline">
+													<input type="checkbox" class="ace"  checked/>
+													<span class="lbl"> 记住密码 </span>
+												</label>
+
+												<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+													<i class="ace-icon fa fa-key"></i>
+													<span class="bigger-110">登录</span>
+												</button>
+											</div>
+
+											<div class="space-4"></div>
+										</fieldset>
+									</form>
+
+									<div class="social-or-login center">
+										<span class="bigger-110">第三方登录</span>
+									</div>
+
+									<div class="space-6"></div>
+
+									<div class="social-login center">
+										<a class="btn btn-primary">
+											<i class="ace-icon fa fa-qq"></i>
+										</a>
+
+										<a class="btn btn-info">
+											<i class="ace-icon fa fa-weixin"></i>
+										</a>
+
+										<a class="btn btn-danger">
+											<i class="ace-icon fa fa-weibo"></i>
+										</a>
+									</div>
+								</div><!-- /.widget-main -->
+
+									<div class="toolbar clearfix">
+										<div>
+											<a href="#" data-target="#forgot-box" class="forgot-password-link">
+												<i class="ace-icon fa fa-arrow-left"></i>
+												忘记密码
+											</a>
+										</div>
+
+										<div>
+											<a href="#" data-target="#signup-box" class="user-signup-link">
+												注册
+												<i class="ace-icon fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div><!-- /.widget-body -->
+							</div><!-- /.login-box -->
+
+							<div id="forgot-box" class="forgot-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header red lighter bigger">
+											<i class="ace-icon fa fa-key"></i>
+											找回密码
+										</h4>
+
+										<div class="space-6"></div>
+										<p>
+											输入您的电子邮件和接收指令
+										</p>
+
+										<form>
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="email" class="form-control" placeholder="Email" />
+														<i class="ace-icon fa fa-envelope"></i>
+													</span>
+												</label>
+
+												<div class="clearfix">
+													<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<i class="ace-icon fa fa-lightbulb-o"></i>
+														<span class="bigger-110">发送邮件</span>
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div><!-- /.widget-main -->
+
+									<div class="toolbar center">
+										<a href="#" data-target="#login-box" class="back-to-login-link">
+											返回登录
+											<i class="ace-icon fa fa-arrow-right"></i>
+										</a>
+									</div>
+								</div><!-- /.widget-body -->
+							</div><!-- /.forgot-box -->
+							<div id="signup-box" class="signup-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header green lighter bigger">
+											<i class="ace-icon fa fa-users blue"></i>
+											用户注册
+										</h4>
+
+										<div class="space-6"></div>
+										<p>填写信息: </p>
+
+										<form action="<?php echo U('Login/doregister');?>" method="post">
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="text" name="readername" class="form-control" placeholder="用户名" id="readername"/>
+														<i class="ace-icon fa fa-user"></i>
+													</span>
+													<span id="mess1" style="color:#ea1f00"></span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="password" id="password" name="password" class="form-control" placeholder="密码" />
+														<i class="ace-icon fa fa-lock"></i>
+													</span>
+													<span id="mess2" style="color:#ea1f00"></span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="password" id="repassword" name="repassword" class="form-control" placeholder="确认密码" />
+														<i class="ace-icon fa fa-retweet"></i>
+													</span>
+													<span id="mess3" style="color:#ea1f00"></span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="text" id="phone" name="phone" class="form-control" placeholder="手机号码" />
+														<i class="ace-icon fa fa-phone"></i>
+													</span>
+													<span id="mess4" style="color:#ea1f00"></span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="text" id="code" name="code" style="width:160px;height:40px" value="" placeholder="验证码">
+														<a href="javascript:void(0)" id="phoneyzm" class="btn btn-primary" style="width:127px">发送验证码</a>
+													</span>
+													<span id="mess5" style="color:#ea1f00"></span>
+												</label>
+
+												<label class="block">
+													<input type="checkbox" class="ace" checked/>
+													<span class="lbl">
+														接受
+														<a href="#">百度用户协议</a>
+													</span>
+												</label>
+
+												<div class="space-24">
+												</div>
+
+												<div class="clearfix">
+													<button type="reset" class="width-30 pull-left btn btn-sm">
+														<i class="ace-icon fa fa-refresh"></i>
+														<span class="bigger-110">重置</span>
+													</button>
+
+													<button type="submit" id="submit1" class="width-65 pull-right btn btn-sm btn-success">
+														<span class="bigger-110">注册</span>
+
+														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+
+									<div class="toolbar center">
+										<a href="#" data-target="#login-box" class="back-to-login-link">
+											<i class="ace-icon fa fa-arrow-left"></i>
+											返回登录
+										</a>
+									</div>
+								</div><!-- /.widget-body -->
+							</div><!-- /.signup-box -->
+						</div><!-- /.position-relative -->
+
+						<div class="navbar-fixed-top align-right">
+							<br />
+							&nbsp;
+							<a id="btn-login-dark" href="#">Dark</a>
+							&nbsp;
+							<span class="blue">/</span>
+							&nbsp;
+							<a id="btn-login-blur" href="#">Blur</a>
+							&nbsp;
+							<span class="blue">/</span>
+							&nbsp;
+							<a id="btn-login-light" href="#">Light</a>
+							&nbsp; &nbsp; &nbsp;
+						</div>
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.main-content -->
+	</div><!-- /.main-container -->
+		<script src="/BdNovel/Public/login/assets/js/jquery.2.1.1.min.js"></script>
+		<!-- basic scripts -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='/BdNovel/Public/login/assets/js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='/BdNovel/Public/login/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script type="text/javascript">
+			jQuery(function($) {
+			 $(document).on('click', '.toolbar a[data-target]', function(e) {
+				e.preventDefault();
+				var target = $(this).data('target');
+				$('.widget-box.visible').removeClass('visible');//hide others
+				$(target).addClass('visible');//show target
+			 });
+			});
+					
+			//you don't need this, just used for changing background
+			jQuery(function($) {
+			 $('#btn-login-dark').on('click', function(e) {
+				$('body').attr('class', 'login-layout');
+				// $('#id-text2').attr('class', 'white');
+				$('#id-company-text').attr('class', 'blue');
+				
+				e.preventDefault();
+			 });
+			 $('#btn-login-light').on('click', function(e) {
+				$('body').attr('class', 'login-layout light-login');
+				// $('#id-text2').attr('class', 'grey');
+				$('#id-company-text').attr('class', 'blue');
+				
+				e.preventDefault();
+			 });
+			 $('#btn-login-blur').on('click', function(e) {
+				$('body').attr('class', 'login-layout blur-login');
+				// $('#id-text2').attr('class', 'white');
+				$('#id-company-text').attr('class', 'light-blue');
+				
+				e.preventDefault();
+			 });
+			 
+			});
+		</script>
+		<script>
+			var yzm = $('#yzm');
+			var src_img = yzm.attr('src');
+			yzm.click(function(){
+				$(this).attr('src', src_img+'?yzm='+Math.random());
+			})
+		</script>
+		<script>
+			var error = new Array();
+			error['submit'] = 1;
+			error['readername'] = 1;
+			error['password'] = 1;
+			error['repassword'] = 1;
+			error['phone'] = 1;
+			error['code'] = 1;
+			$('#readername').blur(
+		        function() {
+		            var readername = $(this).val();
+		            $.post("<?php echo U('Login/checkReadername');?>", {
+		                'readername' : readername
+		            }, function(data) {
+		                if (data == 0) {
+		                	$("#mess1").html("");
+		                    error['readername'] = 0;
+		                } else {
+		                    error['readername'] = 1;
+		                    $('#mess1').html(data);
+		                }
+		            })
+		            return false;
+		        });
+			$("#password").blur(
+				function() {
+					var password = $(this).val();
+					$.post("<?php echo U('Login/checkPassword');?>", {
+		                'password' : password
+		            }, function(data) {
+		                if (data == 0) {
+		                	$("#mess2").html("");
+		                    error['password'] = 0;
+		                } else {
+		                    error['password'] = 1;
+		                    $('#mess2').html(data);
+		                }
+		            })
+		            return false;
+				});
+			$("#repassword").blur(
+				function(){
+					var repassword = $(this).val();
+					var password = $("#password").val();
+					if(repassword != password){
+						error['repassword'] = 1;
+						$("#mess3").html('两次密码输入不一致!'); 
+					}else{
+						$("#mess3").html('');
+						error['repassword'] = 0;
+					}
+					return false;
+				});
+			$("#phone").blur(
+				function(){
+					var phone = $(this).val();
+					var reg=/^1[3-8]{2}[0-9]{8}/;
+					if(!reg.test(phone)){
+				        $("#mess4").html("请填写正确手机号!");
+				        error['phone'] = 1;
+      				}else{
+      					$("#mess4").html("");
+				        error['phone'] = 0;
+      				}
+      				return false;
+				});
+			$("#code").blur(
+				function(){
+					var code = $(this).val();
+					// console.log(code);
+					$.post("<?php echo U('Login/checkCode');?>", {
+		                'code' : code
+		            }, function(data) {
+		                if (data == 0) {
+		                	$('#mess5').html('');
+		                    error['code'] = 0;
+		                    // if(error['submit'] == 0){
+		                    // 	$('#submit1').submit();
+		                    // 	return true;
+		                    // }
+		                } else {
+		                    error['code'] = 1;
+		                    $('#mess5').html('验证码错误!');
+		                }
+		            })
+		            return false;
+				});
+			$('#submit1').click(function() {
+		        if ($('#readername').val() == '') {
+		            $('#mess1').html("用户名不能为空!");
+		        }
+		        if ($('#password').val() == '') {
+		            $('#mess2').html("密码不能为空!");
+		        }
+		        if ($('#repassword').val() == '') {
+		            $('#mess3').html('确认密码不能为空!');
+		        }
+		        if ($('#phone').val() == '') {
+		            $('#mess4').html('手机号不能为空!');
+		        }
+				if ($('#code').val() == '') {
+					$('#mess5').html("验证码不能为空!");
+				}
+				if (error['readername'] == 1) {
+		            return false;
+		        } else if (error['password'] == 1) {
+		            return false;
+		        } else if (error['repassword'] == 1) {
+		        	return false;
+		        } else if (error['phone'] == 1) {
+					return false;
+		        } else if (error['code'] == 1) {
+		            return false;
+				} else {
+		        	$("submit1").submit();            
+		            return true;
+		        }
+		    });
+
+			var timer="";
+        	var nums=60;
+        	var validCode=true;//定义该变量是为了处理后面的重复点击事件
+        	$("#phoneyzm").click(function(){
+	            var code=$(this);
+	            if(validCode){
+	                // console.log(111);
+	                validCode=false;
+	                var phone = $("#phone").val();
+	                $.ajax({
+	                    type:'get',
+	                    data:'phone='+phone,
+	                    url:'<?php echo U('Login/sendyzm');?>',
+	                    success:function(data){
+	                    },
+	                });
+	                
+	                timer=setInterval(function(){
+	                    if(nums>0){
+	                        nums--;
+	                        // validCode=false;
+	                        code.text(nums+"s后重新发送");
+	                        code.removeClass("btn-primary");
+	                        $('#phoneyzm').unbind('click');
+	                        code.addClass("gray-bg");
+	                    }
+	                    else{
+	                        clearInterval(timer);
+	                        nums=60;//重置回去
+	                        validCode=true;
+	                        code.removeClass("gray-bg");
+	                        code.addClass("btn-primary");
+	                        code.text("发送验证码");
+	                    }
+	                },1000)
+	            }
+	        });
+		</script>
+		<div style="text-align:center;">
+</div>
+</body>
+</html>

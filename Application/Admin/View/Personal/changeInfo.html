@@ -1,0 +1,45 @@
+<extend  name="Personal/index"/>
+
+<block name="main">
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span> 修改个人资料</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="<{:U('Personal/doChangeInfo')}>">
+      <input type="hidden" name="id" value="<{$data['id']}>">
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">管理员帐号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="adminname" size="50" value="<{$data['adminname']}>" data-validate="required:请输入管理员账号" />   
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">联系电话：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="phone" name="phone" size="50" value="<{$data['phone']}>" data-validate="required:请输入联系电话" />       
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">电子邮箱：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="email" name="email" size="50" value="<{$data['email']}>" data-validate="required:请输入电子邮箱" />         
+        </div>
+      </div>  
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 修改</button>   
+          <button class="button bg-main icon-check-square-o" type="reset"> 重置</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</block>

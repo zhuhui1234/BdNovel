@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/my.css">
+<link rel="stylesheet" href="__PUBLIC__/page.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/pintuer.js"></script>
+<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<block name="main">
+<div id="mian" class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 角色列表</strong></div>
+    <div class="container">
+    	<div class="row" style="margin-top:30px">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-6">
+                <!-- <form action="<{:U('User/index')}>" method="get"> -->
+                <div class="input-group">
+                  <input type="text" id="name" value="" class="form-control" name="name" placeholder="搜索角色名称">
+                  <span class="input-group-btn">
+                    <button id="go" class="btn btn-default" type="submit">Go!</button>
+                  </span>
+                </div><!-- /input-group -->
+                <!-- </form> -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    	<div id="tablelist">
+		<table class="table table-hover mt20 table-bordered table-hover">
+			<tr>
+				<th>ID</th>
+				<th>角色名</th>
+				<th>说明</th>
+				<th>状态</th>
+				<!-- <th>拥有权限</th> -->
+				<th>操作</th>
+			</tr>
+			<volist name="list" id="vo">
+				<tr>
+					<td><{$vo.id}></td>
+					<td><{$vo.name}></td>
+					<td><{$vo.remark}></td>
+					<td><if condition="$vo.status eq 1">启用<else />禁用</if></td>
+					<!-- <td width=200>
+						<volist name="vo.node" id='va'>
+							<{$va}>&nbsp;
+						</volist>
+					</td> -->
+					<td>
+						<a href="<{:U('Role/del',array('id'=>$vo['id']))}>">删除</a>
+						<a href="<{:U('Role/edit',array('id'=>$vo['id']))}>">修改</a>
+						<a href="<{:U('Role/nodelist',array('id'=>$vo['id']))}>">分配权限</a>
+					</td>
+				</tr>
+			</volist>
+			<tr>
+                <td colspan="9"><div class="pages" value="" id="pages"><{$page}></div></td>
+            </tr>
+		</table>
+		</div>
+	</div>
+</div>
+</block>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script>
+    $('#go').click(function(){
+        var where = $('#name').val();
+        $.ajax({
+            type:'get',
+            url:'<{:U('Role/index')}>',
+            data:"name="+where,
+            success:function(data){
+                var $data = $(data);
+                var target_div = $data.find("#tablelist");
+                $('#tablelist').html(target_div);
+            },
+        })
+    })
+
+    function user(page){
+        var p = page;
+        var where = $('#name').val();
+        // console.log(p);
+        $.ajax({
+            type:'get',
+            url:'<{:U('Role/index')}>',
+            data:"name="+where+"&p="+p,
+            success:function(data){
+                var $data = $(data);
+                var target_div = $data.find("#tablelist");
+                $('#tablelist').html(target_div);
+            },
+        })
+    }
+</script>
+</html>

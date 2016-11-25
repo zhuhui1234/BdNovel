@@ -1,0 +1,54 @@
+<extend  name="Comment/index"/>
+
+<block name="main">
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span> 评论详细信息</strong></div>
+  <div class="body-content">
+    <table class="table table-hover mt20 table-bordered">
+      <tr>
+        <td width="250px">评论标题：</td>
+        <td><{$data.title}></td>
+      </tr>
+      <tr>
+        <td>评论详细内容：</td>
+        <td><{$data.content}></td>
+      </tr>
+      <tr>
+      	<td>评论时间：</td>
+      	<td><{$data.addtime|date='Y-m-d H:i:s',###}></td>
+      </tr>
+      <tr>
+      	<td>回复数：</td>
+      	<td><{$data.replynum}></td>
+      </tr>
+      <tr>
+      	<td>点赞数：</td>
+      	<td><{$data.likenum}></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="panel-head"><strong><span class="icon-key"></span> 相关回复</strong></div>
+  <div class="body-content">
+    <table class="table table-hover mt20 table-bordered">
+      <tr>
+        <td>回复内容：</td>
+        <td width="250px">回复时间：</td>
+        <td>回复状态：</td>
+        <td>操作：</td>
+      </tr>
+    <volist name="list" id="vo">
+      <tr>
+        <td><{$vo.replycontent}></td>
+        <td><{$vo.replytime|date='Y-m-d H:i:s',###}></td>
+        <td><if condition="$vo.status eq 0">显示<else />隐藏</if></td>
+        <td>
+        	<if condition="$vo.status eq '0'"><a href="<{:U('Comment/replyForbidden',array('id'=>$vo['id'],'commentid'=>$commentid))}>" class="btn btn-danger">禁用</a>
+        	<else /><a href="<{:U('Comment/replyRelease',array('id'=>$vo['id'],'commentid'=>$commentid))}>" class="btn btn-success">解禁</a></if>
+        </td>
+      </tr>
+    </volist>
+    </table>
+  </div>
+</div>
+</block>

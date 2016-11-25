@@ -1,0 +1,43 @@
+<extend name="Role/index" />
+<block name="main">
+
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span> 修改角色</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="<{:U('Role/save')}>">
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">角色名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="name" size="50" value="<{$vo.name}>" data-validate="required:角色名" /> 
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">说明：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="remark" size="50"  value="<{$vo.remark}>" data-validate="required:请输入说明" />       
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+			<input type="radio" name="status" value="1" <if condition="$vo.status eq 1">checked</if>>启用
+			<input type="radio" name="status" value="0" <if condition="$vo.status eq 0">checked</if> >禁用
+		</div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+        	<input type="hidden" name="id" value="<{$vo.id}>">
+            <button class="button bg-main icon-check-square-o" type="submit"> 修改</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</block>
